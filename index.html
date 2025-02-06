@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honduras en Cifras</title>    
     <link rel="stylesheet" href="estilos/estilos.css?v=1.1">
-  
+    <script src="libs/jquery/jquery-3.7.1.min.js"></script>
   
     <link href="libs/bs/css/bootstrap.min.css" rel="stylesheet" >
     <script src="libs/bs/js/bootstrap.bundle.min.js"></script>
+    
 </head>
   <style>
     html,body{
@@ -80,4 +81,31 @@
     <div class="piepagina">SISDEHON - Sistemas de Honduras</div>
   </div>
 </body>
+<script>
+  $(document).ready(function() {      
+    var fechaActual = new Date().toISOString().split('T')[0];
+
+    $.getJSON("https://1drv.ms/u/s!AsR_lbkTf3aQoqsjXD4IyVAFoA1YUw?e=eO0sMn", function(datos) {
+    
+      var resultado = datos.find(item => item.fecha === fechaActual);
+      
+      if (resultado) {
+          console.log("Datos de la fecha actual:", resultado);
+          $("#valorindicador").html(
+              "Fecha: " + resultado.fecha + "<br>" +
+              "Valor: " + resultado.valor + "<br>" +
+              "Fuente: " + resultado.fuente + "<br>" +
+              "Lugar: " + resultado.lugar + " (" + resultado.lugardet + ")<br>" +
+              "Periodo: " + resultado.periodo
+          );
+      } else {
+          console.log("No hay datos para la fecha actual.");
+          $("#resultado").html("No hay datos disponibles para hoy.");
+      }
+    }).fail(function() {
+        console.log("Error al cargar los datos.");
+        $("#resultado").html("Error al cargar los datos.");
+    });
+  });
+</script> 
 </html>
