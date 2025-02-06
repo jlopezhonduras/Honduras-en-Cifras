@@ -85,7 +85,7 @@
   $(document).ready(function() {      
     var fechaActual = new Date().toISOString().split('T')[0];
 
-    $.getJSON("https://1drv.ms/u/s!AsR_lbkTf3aQoqsjXD4IyVAFoA1YUw?e=eO0sMn", function(datos) {
+    $.getJSON("https://raw.githubusercontent.com/jlopezhonduras/Honduras-en-Cifras/main/datos/datos.json", function(datos) {
     
       var resultado = datos.find(item => item.fecha === fechaActual);
       
@@ -104,7 +104,7 @@
       }
     }).fail(function() {
         console.log("Error al cargar los datos.");
-        $("#resultado").html("Error al cargar los datos.");
+        $("#valorindicador").html("Error al cargar los datos.");
     });
   });
 </script> 
