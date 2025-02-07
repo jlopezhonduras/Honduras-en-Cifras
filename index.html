@@ -85,18 +85,19 @@
   $(document).ready(function() {      
     var fechaActual = new Date().toISOString().split('T')[0];
 
-    $.getJSON("https://raw.githubusercontent.com/jlopezhonduras/Honduras-en-Cifras/main/datos/datos.json", function(datos) {
+    $.getJSON("https://sisde-odu.unah.edu.hn/apps/datos.json", function(datos) {
     
       var resultado = datos.find(item => item.fecha === fechaActual);
       
       if (resultado) {
           console.log("Datos de la fecha actual:", resultado);
           $("#valorindicador").html(
-              "Fecha: " + resultado.fecha + "<br>" +
-              "Valor: " + resultado.valor + "<br>" +
+              resultado.valor
+              /*"Fecha: " + resultado.fecha + "<br>" +
+              
               "Fuente: " + resultado.fuente + "<br>" +
               "Lugar: " + resultado.lugar + " (" + resultado.lugardet + ")<br>" +
-              "Periodo: " + resultado.periodo
+              "Periodo: " + resultado.periodo*/
           );
       } else {
           console.log("No hay datos para la fecha actual.");
