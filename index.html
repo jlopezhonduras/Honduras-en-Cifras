@@ -87,9 +87,11 @@
 <script>
   $(document).ready(function() {      
     var fechaActual = new Date().toISOString().split('T')[0];
+    
+    var urlJSON = "https://raw.githubusercontent.com/jlopezhonduras/Honduras-en-Cifras/master/datos/datos.json?_=" + Date.now();
 
     $("#contenido").html("entramos"+fechaActual)
-    $.getJSON("https://raw.githubusercontent.com/jlopezhonduras/Honduras-en-Cifras/master/datos/datos.json", function(datos) {
+    $.getJSON(urlJSON, function(datos) {
     
       var resultado = datos.find(item => item.fecha === fechaActual);
       
