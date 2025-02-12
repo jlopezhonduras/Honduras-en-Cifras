@@ -14,6 +14,14 @@
     "lugar": "Departamento",
     "lugardet": "Cortés",
     "periodo": 2023
+  },
+  {
+    "fecha": "2025-02-12",  
+    "valor": 25,
+    "fuente": "Censo de Población y Vivienda",
+    "lugar": "Departamento",
+    "lugardet": "Cortés",
+    "periodo": 2023
   }
 ]
 
