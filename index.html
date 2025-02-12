@@ -82,34 +82,9 @@
     <div class="piepagina">SISDEHON - Sistemas de Honduras</div>
   </div>
   
-  <div id="contenido"></div>
+  <div id="contenido">Hola sasas</div>
 </body>
 <script>
-  $(document).ready(function() {      
-    var fechaActual = new Date().toISOString().split('T')[0];
-
-    $.getJSON("https://sisde-odu.unah.edu.hn/apps/datos.json", function(datos) {
-    
-      var resultado = datos.find(item => item.fecha === fechaActual);
-      
-      if (resultado) {
-          console.log("Datos de la fecha actual:", resultado);
-          $("#valorindicador").html(
-              resultado.valor
-              /*"Fecha: " + resultado.fecha + "<br>" +
-              
-              "Fuente: " + resultado.fuente + "<br>" +
-              "Lugar: " + resultado.lugar + " (" + resultado.lugardet + ")<br>" +
-              "Periodo: " + resultado.periodo*/
-          );
-      } else {
-          console.log("No hay datos para la fecha actual.");
-          $("#resultado").html("No hay datos disponibles para hoy.");
-      }
-    }).fail(function() {
-        console.log("Error al cargar los datos.");
-        $("#valorindicador").html("Error al cargar los datos.");
-    });
-  });
+  
 </script> 
 </html>
