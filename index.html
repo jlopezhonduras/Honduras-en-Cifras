@@ -70,25 +70,24 @@
     </div>
     <hr class="border border-black">
     <div id="titindicador">Tasa de Fecundidades</div>
-    <div id="valorindicador">18%</div>
+    <div id="valorindicador">0%</div>
     <hr class="border border-black">
     <div id="fuente">
-      <br>Fuente: <span class="texto">Censo de Población y Vivienda</span>
+      <br>Fuente: <span class="texto" id="fuente1">Censo de Población y Vivienda</span>
       <br>Año: <span class="texto">2013</span>
       <br>Ubicación Geográfica: <span class="texto">Municipio</span>
     </div>    
     <hr class="border border-black">
     <div class="fecha">04/02/2025</div>    
     <div class="piepagina">SISDEHON - Sistemas de Honduras</div>
-  </div>
-  
-  <div id="contenido">Hola</div>
+  </div>  
 </body>
 <script>
   $(document).ready(function() {      
     var fechaActual = new Date().toISOString().split('T')[0];
     
     var urlJSON = "https://raw.githubusercontent.com/jlopezhonduras/Honduras-en-Cifras/master/datos/datos.json?_=" + Date.now();
+        
 
     $("#contenido").html("entramos"+fechaActual)
     $.getJSON(urlJSON, function(datos) {
@@ -97,14 +96,9 @@
       
       if (resultado) {
           console.log("Datos de la fecha actual:", resultado);
-          $("#valorindicador").html(
-              resultado.valor
-              /*"Fecha: " + resultado.fecha + "<br>" +
-              
-              "Fuente: " + resultado.fuente + "<br>" +
-              "Lugar: " + resultado.lugar + " (" + resultado.lugardet + ")<br>" +
-              "Periodo: " + resultado.periodo*/
-          );
+          $("#valorindicador").html(resultado.valor);
+          $("#fecha").html(resultado.fecha);
+          $("#fuente1").html(resultado.fuente);
       } else {
           console.log("No hay datos para la fecha actual.");
           $("#resultado").html("No hay datos disponibles para hoy.");
