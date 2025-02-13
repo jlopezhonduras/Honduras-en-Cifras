@@ -22,6 +22,14 @@
     "lugar": "Departamento",
     "lugardet": "Cortés",
     "periodo": 2023
+  },
+  {
+    "fecha": "2025-02-13",  
+    "valor": 105,
+    "fuente": "Encuesta Permanente de Hogares de Propositos Multiples",
+    "lugar": "Municipio",
+    "lugardet": "Distrito Central",
+    "periodo": 2023
   }
 ]
 
