@@ -38,6 +38,14 @@
     "lugar": "Municipio",
     "lugardet": "Distrito Central",
     "periodo": 2025
+  },
+  {
+    "fecha": "2025-02-15",  
+    "valor": 205,
+    "fuente": "Encuesta Permanente de Hogares de Propositos Multiples",
+    "lugar": "Municipio",
+    "lugardet": "Distrito Central",
+    "periodo": 2024
   }
 ]
 
