@@ -2,66 +2,69 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">	
     <title>Honduras en Cifras</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            width: 90%;
-            max-width: 400px;
-        }
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #0057B7;
-        }
-        .subtitle {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .dato {
-            font-size: 36px;
-            font-weight: bold;
-            color: #008000;
-            margin: 20px 0;
-        }
-        .descripcion {
-            font-size: 18px;
-            color: #444;
-        }
-        .btn-compartir {
-            margin-top: 20px;
-            background: #0057B7;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+		<script src="libs/bs/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="libs/bs/css/bootstrap.min.css">
+    <style>  
+			body{
+				background-color: #2563eb;
+				color: white;
+				/*background-image: url("imagenes/fondo3.png");
+				background-size: cover; 
+				background-repeat: no-repeat; 
+				background-position: center; /* Centra la imagen */
+				background: 
+					linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+					url("imagenes/fondo3.png") center/cover no-repeat;
+				font-family: Arial, sans-serif;
+				
+			}
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Honduras en Cifras</div>
+    <div class="container-fluid vw-100 vh-100 border border-1 border-primary rounded rounded-1 d-flex justify-content-center align-items-center">
+			<div class="w-100">
+				<div class="text-center">
+					<span class="fs-2 fw-bolder">Honduras en Cifras</span>
+					<p><span>Un día, Una Cifra</span></p>
+				</div>
+				<div class="w-100 border border-1 border-light rounded-2 bg-white text-center p-2" style="min-height: 200px">
+						<span class="text-primary">Dato del Día</span>
+						<p><span class="text-dark fw-bolder" style="font-size: 55pt" id="dato">75%</span></p>
+						<p><span class=" text-dark" id="complemento">de la población se encuentra en pobreza</span></p>
+				</div>
+				<div class="w-100 mt-3">
+					<div class="row d-flex justify-content-center align-items-center w-100">
+						<div>
+							Fuente
+						</div>
+						<div>
+							Esta es la Fuente
+						</div>
+					</div>
+				
+				</div>
+				<div class="w-100 text-center mt-4">
+					<img class="rounded rounded-5" src="imagenes/sisdehon.jpg" width="60px" height="60px">
+				</div>
+			</div>
+			
+			
+			
+			
+      <!--  <div class="title">Honduras en Cifras</div>
         <div class="subtitle">Un día, una cifra</div>
-        <div class="dato">72%</div>
-        <div class="descripcion">de la población tiene acceso a internet</div>
-        <button class="btn-compartir">Compartir</button>
+        <div class="dato" id="dato">72%</div>
+        <div class="descripcion" id="descripcion">de la población tiene acceso a internet</div>
+				
+				<div class="info" id="info">
+					<div id="fuente">Fuente:</div>
+					<div id="periodo">Periodo:</div>
+					<div id="fecha">Fecha:</div>
+			
+				</div>
+        -->
     </div>
 </body>
 </html>
