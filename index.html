@@ -23,25 +23,35 @@
 				font-family: Arial, sans-serif;
 				
 			}
+			.especial{
+				font-size: 14px;
+				font-style: italic;
+				font-weight: bold;
+			}
+			.especial2{
+				font-size: 16px;				
+				font-weight: bold;
+			}
     </style>
 </head>
 <body>
     <div class="container-fluid vw-100 vh-100 border border-1 border-primary rounded rounded-1 d-flex justify-content-center align-items-center">
 			<div class="w-100">
-				<div class="text-center">
+				<div class="text-center mb-2">
 					<span class="fs-2 fw-bolder">Honduras en Cifras</span>
-					<p><span>Un día, Una Cifra</span></p>
+					<br><span>Un día, Una Cifra</span>
+					<br><span id="fecha" class="especial2"></span>
 				</div>
 				<div class="w-100 border border-1 border-light rounded-2 bg-white text-center p-2" style="min-height: 200px">
-						<span class="text-primary">Dato del Día</span>
+						<span class="text-primary">Dato del Día</span>					
 						<p><span class="text-dark fw-bolder" style="font-size: 55pt" id="dato">75%</span></p>
 						<p><span class=" text-dark" id="complemento">de la población se encuentra en pobreza</span></p>
 				</div>
 				<div class="w-100 mt-3">
 					<div class="row d-flex justify-content-center align-items-center w-100">
-						<div><i class="bi bi-sourceforge"></i> <span id="fuente"></span></div>
-						<div><i class="bi bi-calendar-week"></i> <span id="periodo"></span></div>
-						<div><i class="bi bi-geo-alt-fill"></i> <span id="ubicacion"></span></div>
+						<div><i class="bi bi-sourceforge"></i> <span id="fuente" class="especial"></span></div>
+						<div><i class="bi bi-calendar-week"></i> <span id="periodo" class="especial"></span></div>
+						<div><i class="bi bi-geo-alt-fill"></i> <span id="ubicacion" class="especial"></span></div>
 					</div>
 				
 				</div>
@@ -54,43 +64,47 @@
 </body>
 <script>
 		$(document).ready(function() {
-				// Obtener fecha actual del equipo en formato YYYY-MM-DD
-				const fechaActual = new Date().toISOString().split('T')[0];
-				$('#fecha-actual').text(fechaActual);
+			fechaActual = new Date();
+			const dia = String(fechaActual.getDate()).padStart(2, '0'); // DD
+			const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // MM (los meses van de 0-11)
+			const año = fechaActual.getFullYear(); // AAAA
+			fechaActual = new Date().toISOString().split('T')[0];
 
-				// URL del JSON en GitHub Pages
-				const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json';
+			const fechaFormateada = `${dia}/${mes}/${año}`;
 
-				// Cargar datos
-				$.getJSON(url, function(data) {
-						// Filtrar datos por fecha actual
-					
-					console.log(fechaActual);
-						const datosFiltrados = data.filter(item => item.fecha === fechaActual);
+			const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json';
 
-						// Mostrar datos
-						if (datosFiltrados.length > 0) {
-								datosFiltrados.forEach(item => {
-									$("#fuente").append(`${item.fecha} Hla`);
-										/*$('#fuente').append(`
-												<div>
-														<h3>Fecha: ${item.fecha}</h3>
-														<p>Valor: ${item.valor}</p>
-														<p>Fuente: ${item.fuente}</p>
-														<p>Lugar: ${item.lugar} (${item.lugardet})</p>
-														<p>Periodo: ${item.periodo}</p>
-												</div>
-												<hr>
-										`);*/
-								});
-						} else {
-								//$('#contenedor-datos').html('<p>No hay datos para hoy.</p>');
-							$("#fuente,#periodo,#ubicacion,#complemento").html(`No Disponible`);							
-							$("#dato").html("0")
-						}
-				}).fail(function() {
-						console.error('Error al cargar el JSON');
-				});
+			$.getJSON(url, function(data) {
+					// Filtrar datos por fecha actual
+
+				console.log(fechaActual);
+				const datosFiltrados = data.filter(item => item.fecha === fechaActual);
+
+				if (datosFiltrados.length > 0) {
+						datosFiltrados.forEach(item => {
+							$("#fecha").html(fechaFormateada);
+							$("#fuente").html(`${item.fuente}`);
+							$("#periodo").html(`${item.periodo}`);
+							$("#ubicacion").html(`${item.lugar}`);
+								/*$('#fuente').append(`
+										<div>
+												<h3>Fecha: ${item.fecha}</h3>
+												<p>Valor: ${item.valor}</p>
+												<p>Fuente: ${item.fuente}</p>
+												<p>Lugar: ${item.lugar} (${item.lugardet})</p>
+												<p>Periodo: ${item.periodo}</p>
+										</div>
+										<hr>
+								`);*/
+						});
+				} else {
+						//$('#contenedor-datos').html('<p>No hay datos para hoy.</p>');
+					$("#fuente,#periodo,#ubicacion,#complemento").html(`No Disponible`);							
+					$("#dato").html("0")
+				}
+			}).fail(function() {
+					console.error('Error al cargar el JSON');
+			});
 		});
 </script>
 </html>
