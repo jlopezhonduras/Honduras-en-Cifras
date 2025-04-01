@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">	
     <title>Honduras en Cifras</title>
-		<script src="libs/bs/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="libs/bs/css/bootstrap.min.css">
+		<script src="libs/jquery/jquery-3.7.1.min.js"></script>
+		<script src="libs/bs/js/bootstrap.min.js"></script>		
+		<link rel="stylesheet" href="libs/bs/css/bootstrap.min.css">		
+		<link rel="stylesheet" href="libs/bsicons/font/bootstrap-icons.min.css">
+		
     <style>  
 			body{
 				background-color: #2563eb;
@@ -36,12 +39,9 @@
 				</div>
 				<div class="w-100 mt-3">
 					<div class="row d-flex justify-content-center align-items-center w-100">
-						<div>
-							Fuente
-						</div>
-						<div>
-							Esta es la Fuente
-						</div>
+						<div><i class="bi bi-sourceforge"></i> <span id="fuente"></span></div>
+						<div><i class="bi bi-calendar-week"></i> <span id="periodo"></span></div>
+						<div><i class="bi bi-geo-alt-fill"></i> <span id="ubicacion"></span></div>
 					</div>
 				
 				</div>
@@ -50,21 +50,45 @@
 				</div>
 			</div>
 			
-			
-			
-			
-      <!--  <div class="title">Honduras en Cifras</div>
-        <div class="subtitle">Un día, una cifra</div>
-        <div class="dato" id="dato">72%</div>
-        <div class="descripcion" id="descripcion">de la población tiene acceso a internet</div>
-				
-				<div class="info" id="info">
-					<div id="fuente">Fuente:</div>
-					<div id="periodo">Periodo:</div>
-					<div id="fecha">Fecha:</div>
-			
-				</div>
-        -->
     </div>
 </body>
+<script>
+		$(document).ready(function() {
+				// Obtener fecha actual del equipo en formato YYYY-MM-DD
+				const fechaActual = new Date().toISOString().split('T')[0];
+				$('#fecha-actual').text(fechaActual);
+
+				// URL del JSON en GitHub Pages
+				const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json';
+
+				// Cargar datos
+				$.getJSON(url, function(data) {
+						// Filtrar datos por fecha actual
+						const datosFiltrados = data.filter(item => item.fecha === fechaActual);
+
+						// Mostrar datos
+						if (datosFiltrados.length > 0) {
+								datosFiltrados.forEach(item => {
+									$("#fuente").append(`${item.fecha} Hla`);
+										/*$('#fuente').append(`
+												<div>
+														<h3>Fecha: ${item.fecha}</h3>
+														<p>Valor: ${item.valor}</p>
+														<p>Fuente: ${item.fuente}</p>
+														<p>Lugar: ${item.lugar} (${item.lugardet})</p>
+														<p>Periodo: ${item.periodo}</p>
+												</div>
+												<hr>
+										`);*/
+								});
+						} else {
+								//$('#contenedor-datos').html('<p>No hay datos para hoy.</p>');
+							$("#fuente,#periodo,#ubicacion,#complemento").html(`No Disponible`);							
+							$("#dato").html("0")
+						}
+				}).fail(function() {
+						console.error('Error al cargar el JSON');
+				});
+		});
+</script>
 </html>
