@@ -64,6 +64,8 @@
 				// Cargar datos
 				$.getJSON(url, function(data) {
 						// Filtrar datos por fecha actual
+					
+					console.log(fechaActual);
 						const datosFiltrados = data.filter(item => item.fecha === fechaActual);
 
 						// Mostrar datos
