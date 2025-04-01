@@ -58,8 +58,7 @@
 				<div class="w-100 text-center mt-4">
 					<img class="rounded rounded-5" src="imagenes/sisdehon.jpg" width="60px" height="60px">
 				</div>
-			</div>
-			
+			</div>			
     </div>
 </body>
 <script>
@@ -83,6 +82,7 @@
 				if (datosFiltrados.length > 0) {
 						datosFiltrados.forEach(item => {
 							$("#fecha").html(fechaFormateada);
+							$("#complemento").html(`${item.complemento}`);
 							$("#fuente").html(`${item.fuente}`);
 							$("#periodo").html(`${item.periodo}`);
 							$("#ubicacion").html(`${item.lugar}`);
