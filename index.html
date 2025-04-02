@@ -35,31 +35,48 @@
     </style>
 </head>
 <body>
-    <div class="container-fluid vw-100 vh-100 border border-1 border-primary rounded rounded-1 d-flex justify-content-center align-items-center">
-			<div class="w-100">
-				<div class="text-center mb-2">
-					<span class="fs-2 fw-bolder">Honduras en Cifras</span>
-					<br><span>Un día, Una Cifra</span>
-					<br><span id="fecha" class="especial2"></span>
+	<div class="modal fade " id="inter" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="w-100 border border-1 border-light rounded-2 bg-white text-center p-2" style="min-height: 200px">
-						<span class="text-primary">Dato del Día</span>					
-						<p><span class="text-dark fw-bolder" style="font-size: 55pt" id="dato"></span></p>
-						<p><span class=" text-dark" id="complemento"></span></p>
+				<div class="modal-body text-black text-center fst-italic" id="interpretacion">					
+					Cargando interpretación, espere porfavor ...
+				</div>				
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<div class="container-fluid vw-100 vh-100 border border-1 border-primary rounded rounded-1 d-flex justify-content-center align-items-center">
+		<div class="w-100">
+			<div class="text-center mb-2">
+				<span class="fs-2 fw-bolder">Honduras en Cifras</span>
+				<br><span>Un día, Una Cifra</span>
+				<br><span id="fecha" class="especial2"></span>
+			</div>
+			<div class="w-100 border border-1 border-light rounded-2 bg-white text-center p-2" style="min-height: 200px">
+					<span class="text-primary">Dato del Día</span>					
+				<p><span class="text-dark fw-bolder" style="font-size: 55pt" id="dato"></span></p>
+					<p><span class="text-dark fst-italic" id="complemento"><i class="bi bi-upc"></i></span></p>
+					<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#inter"><i class="bi bi-info-circle-fill"></i></button>
+			</div>
+			<div class="w-100 mt-3">
+				<div class="row d-flex justify-content-center align-items-center w-100">
+					<div><i class="bi bi-sourceforge"></i> <span id="fuente" class="especial">Cargando, espere...</span></div>
+					<div><i class="bi bi-calendar-week"></i> <span id="periodo" class="especial">Cargando, espere...</span></div>
+					<div><i class="bi bi-geo-alt-fill"></i> <span id="ubicacion" class="especial">Cargando, espere...</span></div>
 				</div>
-				<div class="w-100 mt-3">
-					<div class="row d-flex justify-content-center align-items-center w-100">
-						<div><i class="bi bi-sourceforge"></i> <span id="fuente" class="especial"></span></div>
-						<div><i class="bi bi-calendar-week"></i> <span id="periodo" class="especial"></span></div>
-						<div><i class="bi bi-geo-alt-fill"></i> <span id="ubicacion" class="especial"></span></div>
-					</div>
-				
-				</div>
-				<div class="w-100 text-center mt-4">
-					<img class="rounded rounded-5" src="imagenes/sisdehon.jpg" width="60px" height="60px">
-				</div>
+
 			</div>			
-    </div>
+			<div class="w-100 text-center mt-4">
+				<img class="rounded rounded-5" src="imagenes/sisdehon.jpg" width="60px" height="60px">
+			</div>
+		</div>			
+	</div>
 </body>
 <script>
 		$(document).ready(function() {
@@ -73,8 +90,7 @@
 
 			// URL con parámetro anti-caché
 			const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json?_=' + Date.now();
-			console.log(url);
-
+			
 			// Petición AJAX con configuración mejorada
 			$.ajax({
 					url: url,
@@ -91,6 +107,7 @@
 											$("#fuente").html(item.fuente || 'No Disponible');
 											$("#periodo").html(item.periodo || 'No Disponible');
 											$("#ubicacion").html(item.lugar || 'No Disponible');
+											$("#interpretacion").html(item.interpretacion || 'No Disponible');
 											$("#dato").html(item.valor || '0');
 									});
 							} else {
