@@ -63,48 +63,51 @@
 </body>
 <script>
 		$(document).ready(function() {
-			fechaActual = new Date();
-			const dia = String(fechaActual.getDate()).padStart(2, '0'); // DD
-			const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // MM (los meses van de 0-11)
-			const año = fechaActual.getFullYear(); // AAAA
-			fechaActual = new Date().toISOString().split('T')[0];
-
+			// Formateo de fecha (igual que tu versión original)
+			const fechaActualObj = new Date();
+			const dia = String(fechaActualObj.getDate()).padStart(2, '0');
+			const mes = String(fechaActualObj.getMonth() + 1).padStart(2, '0');
+			const año = fechaActualObj.getFullYear();
 			const fechaFormateada = `${dia}/${mes}/${año}`;
+			const fechaActualISO = fechaActualObj.toISOString().split('T')[0]; // Formato YYYY-MM-DD
 
-			const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json';
+			// URL con parámetro anti-caché
+			const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json?_=' + Date.now();
+			console.log(url);
 
-			$.getJSON(url, function(data) {
-					// Filtrar datos por fecha actual
+			// Petición AJAX con configuración mejorada
+			$.ajax({
+					url: url,
+					dataType: 'json',
+					cache: false, // Desactiva caché explícitamente
+					success: function(data) {
+							// Filtrado por fecha (igual que tu lógica original)
+							const datosFiltrados = data.filter(item => item.fecha === fechaActualISO);
 
-				console.log(fechaActual);
-				const datosFiltrados = data.filter(item => item.fecha === fechaActual);
+							if (datosFiltrados.length > 0) {
+									datosFiltrados.forEach(item => {
+											$("#fecha").html(fechaFormateada);
+											$("#complemento").html(item.complemento || 'No Disponible');
+											$("#fuente").html(item.fuente || 'No Disponible');
+											$("#periodo").html(item.periodo || 'No Disponible');
+											$("#ubicacion").html(item.lugar || 'No Disponible');
+											$("#dato").html(item.valor || '0');
+									});
+							} else {
+									$("#fuente, #periodo, #ubicacion, #complemento").html('No Disponible');
+									$("#dato").html("0");
+							}
+					},
+					error: function(xhr, status, error) {
+							console.error('Error al cargar el JSON:', status, error);
 
-				if (datosFiltrados.length > 0) {
-						datosFiltrados.forEach(item => {
-							$("#fecha").html(fechaFormateada);
-							$("#complemento").html(`${item.complemento}`);
-							$("#fuente").html(`${item.fuente}`);
-							$("#periodo").html(`${item.periodo}`);
-							$("#ubicacion").html(`${item.lugar}`);
-							$("#dato").html(`${item.valor}`);
-								/*$('#fuente').append(`
-										<div>
-												<h3>Fecha: ${item.fecha}</h3>
-												<p>Valor: ${item.valor}</p>
-												<p>Fuente: ${item.fuente}</p>
-												<p>Lugar: ${item.lugar} (${item.lugardet})</p>
-												<p>Periodo: ${item.periodo}</p>
-										</div>
-										<hr>
-								`);*/
-						});
-				} else {
-						//$('#contenedor-datos').html('<p>No hay datos para hoy.</p>');
-					$("#fuente,#periodo,#ubicacion,#complemento").html(`No Disponible`);							
-					$("#dato").html("0")
-				}
-			}).fail(function() {
-					console.error('Error al cargar el JSON');
+							// Manejo de errores en la interfaz
+							$("#fuente, #periodo, #ubicacion, #complemento").html('Error al cargar');
+							$("#dato").html("0");
+
+							// Opcional: Mostrar alerta al usuario
+							alert("No se pudieron cargar los datos. Por favor intenta más tarde.");
+					}
 			});
 		});
 </script>
