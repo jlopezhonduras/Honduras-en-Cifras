@@ -101,8 +101,10 @@
 	</div>
 	
 	
-	
-	<div class="container-fluid vw-100 vh-100 border border-1 border-primary rounded rounded-1 d-flex justify-content-center align-items-center">
+	<div class="w-100 d-flex justify-content-end align-items-end mt-1 me-1" style="height: 5vh">
+		<button class="btn btn-light" title="Actualizar Datos" id="btncargar"><i class="bi bi-arrow-clockwise"></i></button>
+	</div>
+	<div class="container-fluid vw-100 rounded rounded-1 d-flex justify-content-center align-items-center" style="height: 94vh">		
 		<div class="w-100">
 			<div class="text-center mb-2">
 				<span class="fs-2 fw-bolder">Honduras en Cifras</span>
@@ -138,53 +140,65 @@
 </body>
 <script>
 		$(document).ready(function() {
-			// Formateo de fecha (igual que tu versión original)
-			const fechaActualObj = new Date();
-			const dia = String(fechaActualObj.getDate()).padStart(2, '0');
-			const mes = String(fechaActualObj.getMonth() + 1).padStart(2, '0');
-			const año = fechaActualObj.getFullYear();
-			const fechaFormateada = `${dia}/${mes}/${año}`;
-			const fechaActualISO = fechaActualObj.toISOString().split('T')[0]; // Formato YYYY-MM-DD
-
-			// URL con parámetro anti-caché
-			const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json?_=' + Date.now();
 			
-			// Petición AJAX con configuración mejorada
-			$.ajax({
-					url: url,
-					dataType: 'json',
-					cache: false, // Desactiva caché explícitamente
-					success: function(data) {
-							// Filtrado por fecha (igual que tu lógica original)
-							const datosFiltrados = data.filter(item => item.fecha === fechaActualISO);
+			function cargardatos(){
+				
+				// Formateo de fecha (igual que tu versión original)
+				const fechaActualObj = new Date();
+				const dia = String(fechaActualObj.getDate()).padStart(2, '0');
+				const mes = String(fechaActualObj.getMonth() + 1).padStart(2, '0');
+				const año = fechaActualObj.getFullYear();
+				const fechaFormateada = `${dia}/${mes}/${año}`;
+				const fechaActualISO = fechaActualObj.toISOString().split('T')[0]; // Formato YYYY-MM-DD
 
-							if (datosFiltrados.length > 0) {
-									datosFiltrados.forEach(item => {
-											$("#fecha").html(fechaFormateada);
-											$("#complemento").html(item.complemento || 'No Disponible');
-											$("#fuente").html(item.fuente || 'No Disponible');
-											$("#periodo").html(item.periodo || 'No Disponible');
-											$("#ubicacion").html(item.lugar || 'No Disponible');
-											$("#datoc").html(item.datoc || 'No Disponible');
-											$("#interpretacion").html(item.interpretacion || 'No Disponible');
-											$("#dato").html(item.valor || '0');
-									});
-							} else {
-									$("#fuente, #periodo, #ubicacion, #complemento").html('No Disponible');
-									$("#dato").html("0");
-							}
-					},
-					error: function(xhr, status, error) {
-							console.error('Error al cargar el JSON:', status, error);
+				// URL con parámetro anti-caché
+				const url = 'https://jlopezhonduras.github.io/insumos/basesdedatos/hec.json?_=' + Date.now();
 
-							// Manejo de errores en la interfaz
-							$("#fuente, #periodo, #ubicacion, #complemento").html('Error al cargar');
-							$("#dato").html("0");
+				// Petición AJAX con configuración mejorada
+				$.ajax({
+						url: url,
+						dataType: 'json',
+						cache: false, // Desactiva caché explícitamente
+						success: function(data) {
+								// Filtrado por fecha (igual que tu lógica original)
+								const datosFiltrados = data.filter(item => item.fecha === fechaActualISO);
 
-							// Opcional: Mostrar alerta al usuario
-							alert("No se pudieron cargar los datos. Por favor intenta más tarde.");
-					}
-			});
+								if (datosFiltrados.length > 0) {
+										datosFiltrados.forEach(item => {
+												$("#fecha").html(fechaFormateada);
+												$("#complemento").html(item.complemento || 'No Disponible');
+												$("#fuente").html(item.fuente || 'No Disponible');
+												$("#periodo").html(item.periodo || 'No Disponible');
+												$("#ubicacion").html(item.lugar || 'No Disponible');
+												$("#datoc").html(item.datoc || 'No Disponible');
+												$("#interpretacion").html(item.interpretacion || 'No Disponible');
+												$("#dato").html(item.valor || '0');
+										});
+								} else {
+										$("#fuente, #periodo, #ubicacion, #complemento").html('No Disponible');
+										$("#dato").html("0");
+								}
+						},
+						error: function(xhr, status, error) {
+								console.error('Error al cargar el JSON:', status, error);
+
+								// Manejo de errores en la interfaz
+								$("#fuente, #periodo, #ubicacion, #complemento").html('Error al cargar');
+								$("#dato").html("0");
+
+								// Opcional: Mostrar alerta al usuario
+								alert("No se pudieron cargar los datos. Por favor intenta más tarde.");
+						}
+				});
+			}
+			
+			$("#btncargar").click(function() {
+        cargardatos();
+    	});
+			
+			cargardatos();
+			
+			
 		});
 </script>
 </html>
